@@ -1,0 +1,49 @@
+#include<cstdio>
+#include<iostream>
+#include<cstring>
+#include<cstdlib>
+typedef struct node {
+	int oreder;
+	int data;
+}Data;
+Data input[10000];
+int main() {
+	int number;
+	scanf("%d", &number);
+	int needfound;
+	for (int i = 0; i < number; i++) {
+		scanf("%d%d", &input[i].oreder, &input[i].data);
+	}
+	scanf("%d", &needfound);
+	int medel;
+	for (int i = 0; i < number-1; i++) {
+		int k = i;
+		for (int j = i + 1; j < number; j++) {
+			if (input[k].oreder > input[j].oreder)
+				k = j;
+		}
+		if (k != i) {
+			medel = input[i].data;
+			input[i].data = input[k].data;
+			input[k].data = medel;
+			medel = input[i].oreder;
+			input[i].oreder = input[k].oreder;
+			input[k].oreder = medel;
+		}
+	}
+	for (int i = 0; i < number; i++) {
+		printf("(%d %d)", input[i].oreder, input[i].data);
+	}
+	printf("\n");
+	int flag = 0;
+	for (int i = 0; i < number; i++) {
+		if (needfound == input[i].oreder) {
+			printf("(%d %d)\n", input[i].oreder, input[i].data);
+			flag = 1;
+			break;
+		}
+	}
+	if (flag == 0)
+		printf("error\n");
+	return 0;
+}
